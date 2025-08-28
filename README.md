@@ -3,5 +3,5 @@
 
 ## sql 导入数据表字段
 ```bash
-docker compose exec mysql sh -c 'mysql -uroot -p"root" -e "USE blog; SHOW TABLES;"'
+docker compose exec -T mysql sh -c 'mysql -uroot -p"root" --default-character-set=utf8mb4 blog' < schema.sql
 ```
