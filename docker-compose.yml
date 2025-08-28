@@ -1,0 +1,75 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: blog_mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: blog
+    volumes:
+      - mysql_data:/var/lib/mysql
+    expose:
+      - "3306"
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    networks: [appnet]
+    restart: unless-stopped
+
+  redis:
+    image: redis:latest
+    container_name: blog_redis
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    expose:
+      - "6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    networks: [appnet]
+    restart: unless-stopped
+
+  backend:
+    image: maiyihe/blog_backend:latest
+    container_name: blog_backend
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backendConfig:/app/config:ro
+      - ./backendLogs:/app/logs/
+      - ./noteContentData:/app/data:ro
+    expose:
+      - "8080"
+    networks: [appnet]
+    restart: unless-stopped
+
+  frontend:
+    image: maiyihe/blog_frontend:latest
+    container_name: blog_frontend
+    depends_on: [backend]
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontendConfig/projectsConfig.json:/usr/share/nginx/html/projectsConfig.json:ro
+      - ./frontendConfig/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks: [appnet]
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  appnet:
+    name: appnet
+    driver: bridge

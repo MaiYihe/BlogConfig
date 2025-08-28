@@ -1,0 +1,44 @@
+{
+  "Java (Spring Boot)": [
+    {
+      "name": "BlogBackend",
+      "desc": "个人博客后端核心，基于 Spring Boot + MyBatis-Plus，集成 Spring Cache + Redis 实现缓存，加上 Spring Security + JWT 完成认证与权限控制",
+      "link": "https://github.com/maiyihe/BlogBackend"
+    }
+  ],
+  "HTML + TypeScript + CSS (Vue)": [
+    {
+      "name": "BlogFrontend",
+      "desc": "个人博客前端，基于 Vue，整合 Bootstrap 与 Element Plus 组件库",
+      "link": "https://github.com/maiyihe/BlogFrontend"
+    }
+  ],
+  "Java (Android)": [
+    {
+      "name": "GraduateEnglishAutoAnswerComparison",
+      "desc": "英语选择题自动对答案的安卓程序",
+      "link": "https://github.com/maiyihe/GraduateEnglishAutoAnswerComparison"
+    }
+  ],
+  "LaTeX": [
+    {
+      "name": "LaTeXTemplate",
+      "desc": "自动生成论文封面、诚信承诺书、目录页、中英文摘要页、参考文献、致谢页面",
+      "link": "https://github.com/Stolorzs/ZafuTemplatePublic"
+    }
+  ],
+  "C# (Rhino / Grasshopper)": [
+    {
+      "name": "GHTraditionalChineseArchitecture",
+      "desc": "基于 Grasshopper 二次开发的清式木构古建筑的建模工具",
+      "link": "https://github.com/MaiYihe/GHTraditionalChineseArchitecture"
+    }
+  ],
+  "Python (OpenCV / Numpy)": [
+    {
+      "name": "VideoKeyFrameExtractor",
+      "desc": "关键帧提取工具，保存视频中差异度大的关键帧为图片",
+      "link": "https://github.com/MaiYihe/VideoKeyFrameExtractor"
+    }
+  ]
+}
